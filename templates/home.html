@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Metodo Grafico AngularJS & Python</title>
+    <link rel="icon" href="../../favicon.ico">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/jumbotron-narrow.css" rel="stylesheet">
+    <link href="../static/css/sweetalert.css" rel="stylesheet">
+    <script src="../static/js/angular.js"></script>
+    <script src="../static/controllers/appModule.js"></script>
+</head>
+<body ng-controller="graphicController">
+
+
+    <div class="col-md-12">
+        <h3>Función Objetivo</h3>
+        <p>
+            <input type="number" ng-model="principal.x1"><span>X1 + </span>
+            <input type="number" ng-model="principal.x2"><span> X2 </span>
+        </p>
+    </div>
+    <div class="col-md-12">
+        <h3>¿Cuantas Restricciones ocupas?</h3>
+        <select ng-change="changeSelect()" ng-model="restric">
+            <option value="">--- Please select the number of restrictions ---</option>
+            <option ng-repeat="option in optionsSelect" ng-value="option.value">{{ '{{option.value}}' }}</option>
+        </select>
+    </div>
+
+    <div class="col-md-12" ng-show="two">
+        <h3>Restricciones: </h3>
+        <p>
+            <input type="number" ng-model="first.x1"><span>X1 + </span>
+            <input type="number" ng-model="first.x2"><span> X2 </span>
+            <span>
+                <select ng-model="first.symbol">
+                    <option ng-value="'<='"><=</option>
+                    <option ng-value="'>='">>=</option>
+                    <option ng-value="'='">=</option>
+                </select>
+            </span><input type="number" ng-model="first.equal">
+        </p>
+        <p>
+            <input type="number" ng-model="second.x1"><span>X1 + </span>
+            <input type="number" ng-model="second.x2"><span> X2 </span>
+            <span>
+                <select ng-model="second.symbol">
+                    <option ng-value="'<='"><=</option>
+                    <option ng-value="'>='">>=</option>
+                    <option ng-value="'='">=</option>
+                </select>
+            </span><input type="number" ng-model="second.equal">
+        </p>
+        <button type="button" class="btn btn-success" ng-click="runWith2()">Click On Me!</button>
+        <button type="button" class="btn btn-info" ng-click="clean()">Clean Fields!</button>
+    </div>
+
+
+
+    <div class="col-md-12" ng-show="three">
+        <h3>Restricciones: </h3>
+        <p>
+            <input type="number" ng-model="first.x1"><span>X1 + </span>
+            <input type="number" ng-model="first.x2"><span> X2 </span>
+            <span>
+                <select ng-model="first.symbol">
+                    <option ng-value="'<='"><=</option>
+                    <option ng-value="'>='">>=</option>
+                    <option ng-value="'='">=</option>
+                </select>
+            </span> <input type="number" ng-model="first.equal">
+        </p>
+        <p>
+            <input type="number" ng-model="second.x1"><span>X1 + </span>
+            <input type="number" ng-model="second.x2"><span> X2 </span>
+            <span>
+                <select ng-model="second.symbol">
+                    <option ng-value="'<='"><=</option>
+                    <option ng-value="'>='">>=</option>
+                    <option ng-value="'='">=</option>
+                </select>
+            </span> <input type="number" ng-model="second.equal">
+        </p>
+        <p>
+            <input type="number" ng-model="third.x1"><span>X1 + </span>
+            <input type="number" ng-model="third.x2"><span> X2 </span>
+            <span>
+                <select ng-model="third.symbol">
+                    <option ng-value="'<='"><=</option>
+                    <option ng-value="'>='">>=</option>
+                    <option ng-value="'='">=</option>
+                </select>
+            </span> <input type="number" ng-model="third.equal">
+        </p>
+        <button type="button" class="btn btn-success" ng-click="runWith3()">Resolve!</button>
+        <button type="button" class="btn btn-info" ng-click="clean()">Clean Fields!</button>
+
+    </div>
+
+
+
+<h1 ng-show="consult" >The result is {{'{{finalResult.result}}'}}</h1>
+
+<img ng-show="consult" src="data:image/png;base64, {{'{{finalResult.image}}'}}">
+
+</body>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/sweetalert.min.js"></script>
+</html>
