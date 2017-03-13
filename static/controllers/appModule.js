@@ -4,7 +4,8 @@ var myApp = angular.module('myApp',[]);
 
 				$scope.principal = {
 				    x1: 1,
-                    x2: 1
+                    x2: 1,
+                    op: "max"
                 };
 				$scope.first = {
 				    x1: 1,
@@ -26,7 +27,8 @@ var myApp = angular.module('myApp',[]);
                 };
 
                 $scope.restric = "";
-
+                $scope.finalOP ="";
+                $scope.text = "";
                 $scope.consult = false;
                 $scope.two = false;
                 $scope.three = false;
@@ -40,7 +42,8 @@ var myApp = angular.module('myApp',[]);
                 $scope.clean = function () {
                     $scope.principal = {
 				        x1: 1,
-                        x2: 1
+                        x2: 1,
+                        op: "max"
                     };
                     $scope.first = {
                         x1: 1,
@@ -60,9 +63,9 @@ var myApp = angular.module('myApp',[]);
                         equal: 1,
                         symbol: "<="
                     };
-
+                    $scope.text = "";
                     $scope.restric = "";
-
+                    $scope.finalOP = "";
                     $scope.consult = false;
                     $scope.two = false;
                     $scope.three = false;
@@ -91,12 +94,17 @@ var myApp = angular.module('myApp',[]);
                     if($scope.principal.x2 == 0 || $scope.principal.x2 == null || $scope.principal.x2 == undefined){
 				        $scope.principal.x2 == 1;
                     }
+                    if($scope.principal.op == "max"){
+                        $scope.text = "Maximization";
+                    }else{
+                        $scope.text = "Minimization";
+                    }
 
                     $http({
                         method: 'POST',
                         url: '/First',
                         data: {
-                            P1: $scope.principal.x1,P2: $scope.principal.x2,
+                            P1: $scope.principal.x1,P2: $scope.principal.x2, P3: $scope.principal.op,
                             F1: $scope.first.x1, F2: $scope.first.x2, F3: $scope.first.equal, F4: $scope.first.symbol,
                             S1: $scope.second.x1, S2: $scope.second.x2, S3: $scope.second.equal, S4: $scope.second.symbol,
                             T1: $scope.third.x1, T2: $scope.third.x2, T3: $scope.third.equal, T4: $scope.third.symbol,
@@ -105,6 +113,7 @@ var myApp = angular.module('myApp',[]);
                     }).then(function (response) {
                         $scope.finalResult = response.data;
                         $scope.consult = true;
+                        $scope.finalOP = ($scope.principal.x1 * $scope.finalResult.X) + ($scope.principal.x2 * $scope.finalResult.Y);
                         swal("Success", "Click on OK to check the result!", "success");
                     }, function (error) {
                         console.log(error);
@@ -118,18 +127,24 @@ var myApp = angular.module('myApp',[]);
                     if($scope.principal.x2 == 0 || $scope.principal.x2 == null || $scope.principal.x2 == undefined){
 				        $scope.principal.x2 == 1;
                     }
+                    if($scope.principal.op == "max"){
+                        $scope.text = "Maximization";
+                    }else{
+                        $scope.text = "Minimization";
+                    }
 
                     $http({
                         method: 'POST',
                         url: '/Second',
                         data: {
-                            P1: $scope.principal.x1,P2: $scope.principal.x2,
+                            P1: $scope.principal.x1,P2: $scope.principal.x2, P3: $scope.principal.op,
                             F1: $scope.first.x1, F2: $scope.first.x2, F3: $scope.first.equal, F4: $scope.first.symbol,
                             S1: $scope.second.x1, S2: $scope.second.x2, S3: $scope.second.equal, S4: $scope.second.symbol
                         }
 
                     }).then(function (response) {
                         $scope.finalResult = response.data;
+                        $scope.finalOP = ($scope.principal.x1 * $scope.finalResult.X) + ($scope.principal.x2 * $scope.finalResult.Y);
                         $scope.consult = true;
                         swal("Success", "Click on OK to check the result!", "success");
                     }, function (error) {

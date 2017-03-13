@@ -12,18 +12,24 @@
     <script src="../static/js/angular.js"></script>
     <script src="../static/controllers/appModule.js"></script>
 </head>
-<body ng-controller="graphicController">
+<body ng-controller="graphicController" class="container text-center">
 
 
     <div class="col-md-12">
-        <h3>Función Objetivo</h3>
+        <h3>Objective Function</h3>
         <p>
-            <input type="number" ng-model="principal.x1"><span>X1 + </span>
+            <input type="number" ng-model="principal.x1"><span> X1 + </span>
             <input type="number" ng-model="principal.x2"><span> X2 </span>
+            <br>
+            <h3>What di you want to do?</h3>
+            <select ng-model="principal.op">
+                <option value="max" ng-value="'max'">Maximized</option>
+                <option value="min" ng-value="'min'">Minimized</option>
+            </select>
         </p>
     </div>
     <div class="col-md-12">
-        <h3>¿Cuantas Restricciones ocupas?</h3>
+        <h3>How many restrictions do you want to use?</h3>
         <select ng-change="changeSelect()" ng-model="restric">
             <option value="">--- Please select the number of restrictions ---</option>
             <option ng-repeat="option in optionsSelect" ng-value="option.value">{{ '{{option.value}}' }}</option>
@@ -31,9 +37,9 @@
     </div>
 
     <div class="col-md-12" ng-show="two">
-        <h3>Restricciones: </h3>
+        <h3>Restrictions: </h3>
         <p>
-            <input type="number" ng-model="first.x1"><span>X1 + </span>
+            <input type="number" ng-model="first.x1"><span> X1 + </span>
             <input type="number" ng-model="first.x2"><span> X2 </span>
             <span>
                 <select ng-model="first.symbol">
@@ -44,7 +50,7 @@
             </span><input type="number" ng-model="first.equal">
         </p>
         <p>
-            <input type="number" ng-model="second.x1"><span>X1 + </span>
+            <input type="number" ng-model="second.x1"><span> X1 + </span>
             <input type="number" ng-model="second.x2"><span> X2 </span>
             <span>
                 <select ng-model="second.symbol">
@@ -54,16 +60,16 @@
                 </select>
             </span><input type="number" ng-model="second.equal">
         </p>
-        <button type="button" class="btn btn-success" ng-click="runWith2()">Click On Me!</button>
+        <button type="button" class="btn btn-success" ng-click="runWith2()">Resolve!</button>
         <button type="button" class="btn btn-info" ng-click="clean()">Clean Fields!</button>
     </div>
 
 
 
     <div class="col-md-12" ng-show="three">
-        <h3>Restricciones: </h3>
+        <h3>Restrictions: </h3>
         <p>
-            <input type="number" ng-model="first.x1"><span>X1 + </span>
+            <input type="number" ng-model="first.x1"><span> X1 + </span>
             <input type="number" ng-model="first.x2"><span> X2 </span>
             <span>
                 <select ng-model="first.symbol">
@@ -74,7 +80,7 @@
             </span> <input type="number" ng-model="first.equal">
         </p>
         <p>
-            <input type="number" ng-model="second.x1"><span>X1 + </span>
+            <input type="number" ng-model="second.x1"><span> X1 + </span>
             <input type="number" ng-model="second.x2"><span> X2 </span>
             <span>
                 <select ng-model="second.symbol">
@@ -85,7 +91,7 @@
             </span> <input type="number" ng-model="second.equal">
         </p>
         <p>
-            <input type="number" ng-model="third.x1"><span>X1 + </span>
+            <input type="number" ng-model="third.x1"><span> X1 + </span>
             <input type="number" ng-model="third.x2"><span> X2 </span>
             <span>
                 <select ng-model="third.symbol">
@@ -101,10 +107,10 @@
     </div>
 
 
-
-<h1 ng-show="consult" >The result is {{'{{finalResult.result}}'}}</h1>
-
-<img ng-show="consult" src="data:image/png;base64, {{'{{finalResult.image}}'}}">
+<div class="col-md-12">
+    <img style="width: 750px; height: 750px;" ng-show="consult" src="data:image/png;base64, {{'{{finalResult.image}}'}}">
+    <h3 ng-show="consult" >The result is {{'{{finalResult.result}}'}} and the {{ '{{text}}' }} is {{ '{{finalOP}}' }}</h3>
+</div>
 
 </body>
     <script src="../static/js/jquery.min.js"></script>

@@ -14,6 +14,8 @@ def solution():
         valP1 = request.json['P1']  # Valor X1 Funcion Objetivo
         valP2 = request.json['P2']  # Valor X2 Funcion Objetivo
 
+        valP3 = request.json['P3']  # Valor operacion Maximixar / Minimizar
+
         valF1 = request.json['F1']  # Valor X1 Primer Restriccion
         valF2 = request.json['F2']  # Valor X2 Primer Restriccion
         valF3 = request.json['F3']  # Valor Igualdad Primer Restriccion
@@ -34,7 +36,10 @@ def solution():
         x2 = LpVariable("x2")
 
         # definiendo el problema
-        prob = LpProblem("problem", LpMaximize)
+        if valP3 == "max":
+            prob = LpProblem("problem", LpMaximize)
+        else:
+            prob = LpProblem("problem", LpMinimize)
 
         # definiendo las restricciones
         if valF4 == "<=":
@@ -113,7 +118,7 @@ def solution():
         plot_url = base64.b64encode(img.getvalue())
     except Exception as e:
         return str(e)
-    return json.jsonify(result=result, image=plot_url.decode("utf-8"))
+    return json.jsonify(result=result, image=plot_url.decode("utf-8"), X=value(x1), Y=value(x2))
 
 
 @app.route('/Second', methods=['POST'])
@@ -121,6 +126,8 @@ def solution2():
     try:
         valP1 = request.json['P1']  # Valor X1 Funcion Objetivo
         valP2 = request.json['P2']  # Valor X2 Funcion Objetivo
+
+        valP3 = request.json['P3']  # Valor operacion Maximixar / Minimizar
 
         valF1 = request.json['F1']  # Valor X1 Primer Restriccion
         valF2 = request.json['F2']  # Valor X2 Primer Restriccion
@@ -137,7 +144,10 @@ def solution2():
         x2 = LpVariable("x2")
 
         # definiendo el problema
-        prob = LpProblem("problem", LpMaximize)
+        if valP3 == "max":
+            prob = LpProblem("problem", LpMaximize)
+        else:
+            prob = LpProblem("problem", LpMinimize)
 
         # definiendo las restricciones
         if valF4 == "<=":
@@ -202,7 +212,7 @@ def solution2():
         plot_url = base64.b64encode(img.getvalue())
     except Exception as e:
         return str(e)
-    return json.jsonify(result=result, image=plot_url.decode("utf-8"))
+    return json.jsonify(result=result, image=plot_url.decode("utf-8"), X=value(x1), Y=value(x2))
 
 
 @app.route('/')
